@@ -1,14 +1,18 @@
 import React from 'react';
 import { ThemeProvider } from "styled-components";
-import { theme } from "./theme";
 
 import CharactersListContainer from './containers/CharactersListContainer';
+import { StyledAppContainer } from './components/AppContainer/AppContainer.styled';
+
+import { theme } from "./theme";
 
 function App() {
   return (
     <ThemeProvider theme={ theme }>
-      <h1>Star Wars</h1>
-      <CharactersListContainer />
+      <StyledAppContainer>
+        <h1>Star Wars</h1>
+        <CharactersListContainer />
+      </StyledAppContainer>
     </ThemeProvider>
   );
 }

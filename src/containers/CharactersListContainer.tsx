@@ -1,16 +1,19 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../state/index'
 import CharactersList from '../components/Characters/CharactersList';
 import SearchCharacterForm from '../components/Characters/SearchCharacterForm';
 import { fetchCharacters } from '../state/actions';
 import Text from '../components/Text';
+import Button from '../components/Button';
+import Loader from 'react-loader-spinner';
+import { ThemeContext } from 'styled-components'
 
 const CharactersListContainer = () => {
     const { characters, loading, page, error } = useSelector((state: AppState) => state.characters)
-    const [searchValue, setSearchValue] = useState("")
-
     const dispatch = useDispatch()
+    const [searchValue, setSearchValue] = useState("")
+    const themeContext = useContext(ThemeContext)
 
     const onSearchCharacter = useCallback((value: string) => {
         setSearchValue(value)
@@ -25,8 +28,15 @@ const CharactersListContainer = () => {
         <>
             <SearchCharacterForm searchCharacter={onSearchCharacter} />
             <CharactersList characters={characters.data} />
-            {characters.hasMoreData && <button onClick={handleLoadMoreCharacters}>Load more characters</button>}
-            {loading && <span>Loading...</span>}
+            {!loading && characters.hasMoreData && <Button onClick={handleLoadMoreCharacters}>Load more characters</Button>}
+            {loading && (
+                <Loader
+                    type="Oval"
+                    color={themeContext.accentColor}
+                    height={40}
+                    width={40}
+                />
+            )}
             {!loading && characters.data.length === 0 && <Text>No characters found.</Text>}
             {!loading && error && <p>{error}</p>}
         </>

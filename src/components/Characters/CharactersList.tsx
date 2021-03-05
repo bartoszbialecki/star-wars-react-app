@@ -1,6 +1,7 @@
 import React from 'react';
 import { Character } from '../../state/types';
 import CharacterListItem from './CharacterListItem';
+import { StyledCharactersList } from './CharactersList.styled';
 
 type CharactersListProps =  {
     characters: Character[]
@@ -18,7 +19,7 @@ const CharactersList = ({ characters }: CharactersListProps) => {
     }
 
     return (
-        <ul>{ renderCharactersList() }</ul>
+        <StyledCharactersList>{ renderCharactersList() }</StyledCharactersList>
     )
 }
 
