@@ -70,7 +70,7 @@ class StarWarsApi {
     return {
       id: this.getIdFromUrl(planet.url),
       name: planet.name,
-      population: +planet.population,
+      population: planet.population,
     };
   }
 

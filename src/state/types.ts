@@ -13,7 +13,7 @@ export interface PagedData<T> {
 
 export interface Planet extends Resource {
   name: string;
-  population: number;
+  population: string;
 }
 
 export interface Character extends Resource {
