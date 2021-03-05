@@ -22,7 +22,7 @@ const CharactersListContainer = () => {
     }, [dispatch])
 
     const handleLoadMoreCharacters = () => {
-        if (searchValue) {
+        if (searchValue !== null) {
             dispatch(fetchCharacters(searchValue, page))
         }
     }
