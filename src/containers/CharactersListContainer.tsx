@@ -8,11 +8,12 @@ import Text from '../components/Text';
 import Button from '../components/Button';
 import Loader from 'react-loader-spinner';
 import { ThemeContext } from 'styled-components'
+import { StyledErrorMessage } from '../components/ErrorMessage/ErrorMessage.styled';
 
 const CharactersListContainer = () => {
     const { characters, loading, page, error } = useSelector((state: AppState) => state.characters)
     const dispatch = useDispatch()
-    const [searchValue, setSearchValue] = useState("")
+    const [searchValue, setSearchValue] = useState<string | null>(null)
     const themeContext = useContext(ThemeContext)
 
     const onSearchCharacter = useCallback((value: string) => {
@@ -21,14 +22,28 @@ const CharactersListContainer = () => {
     }, [dispatch])
 
     const handleLoadMoreCharacters = () => {
-        dispatch(fetchCharacters(searchValue, page))
+        if (searchValue) {
+            dispatch(fetchCharacters(searchValue, page))
+        }
+    }
+
+    const showLoadMoreCharactersButton = () => {
+        return !loading && characters.hasMoreData
+    }
+
+    const showNoCharactersInfo = () => {
+        return !loading && !error && characters.data.length === 0 && searchValue !== null
+    }
+
+    const showError = () => {
+        return !loading && error
     }
 
     return (
         <>
             <SearchCharacterForm searchCharacter={onSearchCharacter} />
             <CharactersList characters={characters.data} />
-            {!loading && characters.hasMoreData && <Button onClick={handleLoadMoreCharacters}>Load more characters</Button>}
+            {showLoadMoreCharactersButton() && <Button onClick={handleLoadMoreCharacters}>Load more characters</Button>}
             {loading && (
                 <Loader
                     type="Oval"
@@ -37,8 +52,8 @@ const CharactersListContainer = () => {
                     width={40}
                 />
             )}
-            {!loading && characters.data.length === 0 && <Text>No characters found.</Text>}
-            {!loading && error && <p>{error}</p>}
+            {showNoCharactersInfo() && <Text>No characters found.</Text>}
+            {showError() && <StyledErrorMessage>{error}</StyledErrorMessage>}
         </>
     )
 }
