@@ -1,8 +1,12 @@
 import React from 'react';
+import CharactersListContainer from './containers/CharactersListContainer';
 
 function App() {
   return (
-    <div>Star Wars</div>
+    <>
+      <h1>Star Wars</h1>
+      <CharactersListContainer />
+    </>
   );
 }
 
