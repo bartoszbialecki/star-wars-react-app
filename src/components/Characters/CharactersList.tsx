@@ -1,5 +1,5 @@
 import React from 'react';
-import { Character } from '../state/types';
+import { Character } from '../../state/types';
 import CharacterListItem from './CharacterListItem';
 
 type CharactersListProps =  {

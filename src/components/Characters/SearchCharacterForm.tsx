@@ -1,4 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+import Button from '../Button';
+import { StyledForm } from '../Form/Form.styled';
+import { StyledFormGroup } from '../Form/FormGroup.styled';
+import { FormTitle } from '../Form/FormTitle.styled';
+import Input from '../Input';
+
+
 
 type Props = {
     searchCharacter: (searchValue: string) => void
@@ -18,15 +25,18 @@ const SearchCharacterForm = ({ searchCharacter }: Props) => {
     }
 
     return (
-        <form onSubmit={handleFormSubmit}>
-            <input
+        <StyledForm onSubmit={handleFormSubmit}>
+            <FormTitle>Search Your Favorite Characters</FormTitle>
+            <StyledFormGroup>
+            <Input
                 type="text"
                 name="search"
                 placeholder="Search a character"
                 onChange={handleSearchValueChange}
             />
-            <button>Search</button>
-        </form>
+            </StyledFormGroup>
+            <Button>Search</Button>
+        </StyledForm>
     )
 }
 
