@@ -6,10 +6,12 @@ type Props = {
 }
 
 const CharacterListItem = ({ character }: Props) => {
+    const { name, population } = character.homeworld
+
     return (
         <div>
             <h3>{character.name}</h3>
-            <button>Show list of movies</button>
+            <p>Homeworld: {name}, Population: {population}</p>
         </div>
     )
 }
