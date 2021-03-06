@@ -2,9 +2,12 @@ import {
   CharacterActions,
   CharacterActionTypes,
   CharactersState,
+  FilmActions,
+  FilmActionTypes,
+  FilmsState,
 } from "./types";
 
-const initialState: CharactersState = {
+const initialCharactersState: CharactersState = {
   characters: {
     count: 0,
     hasMoreData: false,
@@ -16,8 +19,8 @@ const initialState: CharactersState = {
   page: 1,
 };
 
-const reducer = (
-  state: CharactersState = initialState,
+const charactersReducer = (
+  state: CharactersState = initialCharactersState,
   action: CharacterActions
 ): CharactersState => {
   switch (action.type) {
@@ -25,6 +28,7 @@ const reducer = (
       return {
         ...state,
         loading: true,
+        error: null,
         characters:
           action.payload.page === 1
             ? { ...state.characters, data: [] }
@@ -60,4 +64,44 @@ const reducer = (
   }
 };
 
-export default reducer;
+const initialFilmsState: FilmsState = {
+  films: [],
+  selectedCharacterFilms: [],
+  loading: false,
+  error: null,
+};
+
+const filmsReducer = (
+  state: FilmsState = initialFilmsState,
+  action: FilmActions
+): FilmsState => {
+  switch (action.type) {
+    case FilmActionTypes.FETCH_FILMS:
+      return {
+        ...state,
+        error: null,
+        loading: true,
+      };
+    case FilmActionTypes.FETCH_FILMS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        films: [...state.films, ...action.payload.films],
+      };
+    case FilmActionTypes.FETCH_FILMS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+      };
+    case FilmActionTypes.FETCH_CHARACTER_FILMS_SUCCESS:
+      return {
+        ...state,
+        selectedCharacterFilms: action.payload.films,
+      };
+    default:
+      return state;
+  }
+};
+
+export { charactersReducer, filmsReducer };

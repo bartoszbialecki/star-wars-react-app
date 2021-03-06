@@ -1,18 +1,20 @@
 import { combineReducers, Reducer } from "redux";
 import { all, fork } from "redux-saga/effects";
 
-import { default as charactersReducer } from "./reducers";
-import { CharactersState } from "./types";
-import charactersSaga from "./sagas";
+import { charactersReducer, filmsReducer } from "./reducers";
+import { CharactersState, FilmsState } from "./types";
+import { charactersSaga, filmsSaga } from "./sagas";
 
 export interface AppState {
   characters: CharactersState;
+  films: FilmsState;
 }
 
 export const rootReducer: Reducer<AppState> = combineReducers<AppState>({
   characters: charactersReducer,
+  films: filmsReducer,
 });
 
 export function* rootSaga() {
-  yield all([fork(charactersSaga)]);
+  yield all([fork(charactersSaga), fork(filmsSaga)]);
 }

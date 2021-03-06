@@ -1,11 +1,10 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+
 import Button from '../Button';
-import { StyledForm } from '../Form/Form.styled';
-import { StyledFormGroup } from '../Form/FormGroup.styled';
 import { FormTitle } from '../Form/FormTitle.styled';
 import Input from '../Input';
-
-
+import { StyledForm } from '../Form/Form.styled';
+import { StyledFormGroup } from '../Form/FormGroup.styled';
 
 type Props = {
     searchCharacter: (searchValue: string) => void

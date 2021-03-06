@@ -1,4 +1,10 @@
-import { Character, PagedData, Planet, ResourceUrl } from "../state/types";
+import {
+  Character,
+  Film,
+  PagedData,
+  Planet,
+  ResourceUrl,
+} from "../state/types";
 
 export interface PagedResults<T> {
   count: number;
@@ -47,6 +53,14 @@ class StarWarsApi {
     return this.mapToPlanet(response);
   }
 
+  async fetchFilm(filmId: number): Promise<Film> {
+    const response = await this.get<any>(
+      `${this.baseUrl}${this.filmsEndpoint}${filmId}/`
+    );
+
+    return this.mapToFilm(response);
+  }
+
   private getIdFromUrl(url: ResourceUrl) {
     const parts = url.split("/").reverse();
     return +parts[1];
@@ -71,6 +85,15 @@ class StarWarsApi {
       id: this.getIdFromUrl(planet.url),
       name: planet.name,
       population: planet.population,
+    };
+  }
+
+  private mapToFilm(film: any): Film {
+    return {
+      id: this.getIdFromUrl(film.url),
+      title: film.title,
+      releaseDate: new Date(film["release_date"]),
+      openingCrawl: film["opening_crawl"],
     };
   }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Character } from '../../state/types';
 import CharacterListItem from './CharacterListItem';
 import { StyledCharactersList } from './CharactersList.styled';

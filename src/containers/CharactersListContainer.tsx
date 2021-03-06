@@ -1,22 +1,23 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppState } from '../state/index'
-import CharactersList from '../components/Characters/CharactersList';
-import SearchCharacterForm from '../components/Characters/SearchCharacterForm';
-import { fetchCharacters, selectCharacter } from '../state/actions';
-import Text from '../components/Text';
-import Button from '../components/Button';
-import Loader from 'react-loader-spinner';
-import { ThemeContext } from 'styled-components'
-import { StyledErrorMessage } from '../components/ErrorMessage/ErrorMessage.styled';
-import Modal from '../components/Modal/Modal';
+
+import { AppState } from '../state/index';
 import { Character } from '../state/types';
+import { fetchCharacters, selectCharacter } from '../state/actions';
+
+import Button from '../components/Button';
+import CharacterDetailsContainer from './CharacterDetailsContainer';
+import CharactersList from '../components/Characters/CharactersList';
+import Modal from '../components/Modal/Modal';
+import SearchCharacterForm from '../components/Characters/SearchCharacterForm';
+import { StyledErrorMessage } from '../components/ErrorMessage/ErrorMessage.styled';
+import Text from '../components/Text';
+import ThemedLoader from '../components/ThemedLoader/ThemedLoader';
 
 const CharactersListContainer = () => {
     const { characters, selectedCharacter, loading, page, error } = useSelector((state: AppState) => state.characters)
     const dispatch = useDispatch()
     const [searchValue, setSearchValue] = useState<string | null>(null)
-    const themeContext = useContext(ThemeContext)
 
     const onSearchCharacter = useCallback((value: string) => {
         setSearchValue(value)
@@ -55,18 +56,13 @@ const CharactersListContainer = () => {
             <CharactersList characters={characters.data} onCharacterSelect={handleCharacterSelect} />
             {showLoadMoreCharactersButton() && <Button onClick={handleLoadMoreCharacters}>Load more characters</Button>}
             {loading && (
-                <Loader
-                    type="Oval"
-                    color={themeContext.accentColor}
-                    height={40}
-                    width={40}
-                />
+                <ThemedLoader />
             )}
             {showNoCharactersInfo() && <Text>No characters found.</Text>}
             {showError() && <StyledErrorMessage>{error}</StyledErrorMessage>}
 
             <Modal isOpen={selectedCharacter !== null} onClose={closeModal}>
-                test
+                {selectedCharacter !== null && <CharacterDetailsContainer character={selectedCharacter} />}
             </Modal>
         </>
     )
