@@ -12,6 +12,10 @@ const StyledModalCloseButton = styled.button`
     right: 20px;
     top: 10px;
     transition: all 200ms;
+
+    &:hover {
+        color:${({ theme }) => theme.accentColor};
+    }
 `
 
 export { StyledModalCloseButton }

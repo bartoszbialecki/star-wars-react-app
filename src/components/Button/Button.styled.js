@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { device } from "../../utils/breakpoints";
 
 const StyledButton = styled.button`
   border: none;
@@ -23,6 +24,10 @@ const StyledButton = styled.button`
 
   &:active {
     box-shadow: ${({ theme }) => theme.activeBoxShadow};
+  }
+
+  @media ${device.mobileL} {
+    font-size: 1.2em;
   }
 `;
 

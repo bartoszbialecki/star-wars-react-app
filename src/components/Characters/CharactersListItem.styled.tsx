@@ -5,7 +5,6 @@ const StyledCharactersListItem = styled.li`
     box-shadow: ${({ theme }) => theme.boxShadow};
     cursor: pointer;
     padding: 1em 2em;
-    width: 500px;
 `
 
 export { StyledCharactersListItem }

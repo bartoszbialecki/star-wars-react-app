@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../utils/breakpoints";
 
 const StyledForm = styled.form`
   border-radius: 10px;
@@ -7,7 +8,11 @@ const StyledForm = styled.form`
   overflow: hidden;
   padding: 4rem 2rem;
   text-align: left;
-  width: 600px;
+  width: 550px;
+
+  @media ${device.tablet} {
+    width: 100%;
+  }
 `;
 
 export { StyledForm };

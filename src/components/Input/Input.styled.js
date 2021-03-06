@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../utils/breakpoints";
 
 const StyledInput = styled.input`
   background-color: ${({ theme }) => theme.componentBackgroundColor};
@@ -13,6 +14,10 @@ const StyledInput = styled.input`
 
   &::placeholder {
     color: ${({ theme }) => theme.placeholderColor};
+  }
+
+  @media ${device.mobileL} {
+    font-size: 1.2em;
   }
 `;
 
