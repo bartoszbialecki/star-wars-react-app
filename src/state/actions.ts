@@ -5,6 +5,7 @@ import {
   FetchCharactersErrorAction,
   FetchCharactersSuccessAction,
   PagedData,
+  SelectCharacterAction,
 } from "./types";
 
 export function fetchCharacters(
@@ -32,5 +33,14 @@ export function fetchCharactersError(
   return {
     type: CharacterActionTypes.FETCH_CHARACTERS_ERROR,
     payload: { error },
+  };
+}
+
+export function selectCharacter(
+  character: Character | null
+): SelectCharacterAction {
+  return {
+    type: CharacterActionTypes.SELECT_CHARACTER,
+    payload: { character },
   };
 }

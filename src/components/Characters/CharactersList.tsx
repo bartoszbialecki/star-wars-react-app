@@ -5,12 +5,13 @@ import { StyledCharactersList } from './CharactersList.styled';
 
 type CharactersListProps =  {
     characters: Character[]
+    onCharacterSelect: (character: Character) => void
 }
 
-const CharactersList = ({ characters }: CharactersListProps) => {
+const CharactersList = ({ characters, onCharacterSelect }: CharactersListProps) => {
     const renderCharacter = (character: Character) => {
         return (
-            <CharacterListItem key={character.id} character={character} />
+            <CharacterListItem key={character.id} character={character} onClick={onCharacterSelect} />
         )
     }
 

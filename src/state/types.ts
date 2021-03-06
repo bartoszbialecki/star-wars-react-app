@@ -24,6 +24,7 @@ export interface Character extends Resource {
 
 export interface CharactersState {
   readonly characters: PagedData<Character>;
+  readonly selectedCharacter: Character | null;
   readonly loading: boolean;
   readonly error: string | null;
   readonly page: number;
@@ -33,6 +34,7 @@ export enum CharacterActionTypes {
   FETCH_CHARACTERS = "@@characters/FETCH_CHARACTERS",
   FETCH_CHARACTERS_SUCCESS = "@@characters/FETCH_CHARACTERS_SUCCESS",
   FETCH_CHARACTERS_ERROR = "@@characters/FETCH_CHARACTERS_ERROR",
+  SELECT_CHARACTER = "@@characters/SELECT_CHARACTER",
 }
 
 export interface FetchCharactersAction {
@@ -57,7 +59,15 @@ export interface FetchCharactersErrorAction {
   };
 }
 
+export interface SelectCharacterAction {
+  type: CharacterActionTypes.SELECT_CHARACTER;
+  payload: {
+    character: Character | null;
+  };
+}
+
 export type CharacterActions =
   | FetchCharactersAction
   | FetchCharactersSuccessAction
-  | FetchCharactersErrorAction;
+  | FetchCharactersErrorAction
+  | SelectCharacterAction;

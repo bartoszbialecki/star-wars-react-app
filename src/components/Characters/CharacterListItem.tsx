@@ -3,14 +3,15 @@ import { Character } from '../../state/types';
 import { StyledCharactersListItem } from './CharactersListItem.styled';
 
 type Props = {
-    character: Character
+    character: Character,
+    onClick: (character: Character) => void;
 }
 
-const CharacterListItem = ({ character }: Props) => {
+const CharacterListItem = ({ character, onClick }: Props) => {
     const { name, population } = character.homeworld
 
     return (
-        <StyledCharactersListItem>
+        <StyledCharactersListItem onClick={() => onClick(character)}>
             <h3>{character.name}</h3>
             <p>Homeworld: {name}, Population: {population}</p>
         </StyledCharactersListItem>

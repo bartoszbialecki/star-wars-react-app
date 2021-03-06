@@ -10,6 +10,7 @@ const initialState: CharactersState = {
     hasMoreData: false,
     data: [],
   },
+  selectedCharacter: null,
   loading: false,
   error: null,
   page: 1,
@@ -48,6 +49,11 @@ const reducer = (
         ...state,
         loading: false,
         error: action.payload.error,
+      };
+    case CharacterActionTypes.SELECT_CHARACTER:
+      return {
+        ...state,
+        selectedCharacter: action.payload.character,
       };
     default:
       return state;
