@@ -87,4 +87,17 @@ describe("<App />", () => {
     const notFoundText = await screen.findByText(/no characters found/i)
     expect(notFoundText).toBeInTheDocument()
   })
+
+  it('should show error message if error occurred', async () => {
+    mockedFetch.mockRejectedValueOnce(new Error('An error occurred'))
+
+    const searchInput = screen.getByPlaceholderText(/search a character/i);
+    userEvent.type(searchInput, "luke")
+
+    const searchButton = screen.getByRole('button', { name: /search/i })
+    await userEvent.click(searchButton)
+
+    const notFoundText = await screen.findByText(/an error occurred/i)
+    expect(notFoundText).toBeInTheDocument()
+  })
 });
