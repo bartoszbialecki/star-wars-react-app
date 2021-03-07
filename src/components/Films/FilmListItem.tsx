@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Film } from '../../state/types';
+import { Film } from '../../state/films';
 
 import { trauncateText } from '../../utils/text';
 

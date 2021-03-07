@@ -1,8 +1,10 @@
 import { combineReducers, Reducer } from "redux";
 import { all, fork } from "redux-saga/effects";
 
-import { charactersReducer, filmsReducer } from "./reducers";
-import { CharactersState, FilmsState } from "./types";
+import { CharactersState } from "./characters";
+import charactersReducer from "./characters/reducers";
+import { FilmsState } from "./films";
+import filmsReducer from "./films/reducers";
 import { charactersSaga, filmsSaga } from "./sagas";
 
 export interface AppState {

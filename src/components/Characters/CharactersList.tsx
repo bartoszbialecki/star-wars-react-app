@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Character } from '../../state/types';
+import { Character } from '../../state/characters';
+
 import CharacterListItem from './CharacterListItem';
 import { StyledCharactersList } from './CharactersList.styled';
 

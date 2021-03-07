@@ -7,8 +7,9 @@ import Text from '../components/Text';
 import ThemedLoader from '../components/ThemedLoader/ThemedLoader';
 
 import { AppState } from '../state';
-import { Character } from '../state/types';
-import { fetchFilms } from '../state/actions';
+import { Character } from '../state/characters';
+import { fetchFilms } from '../state/films';
+
 
 type Props = {
     character: Character

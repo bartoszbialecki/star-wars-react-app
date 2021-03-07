@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Character } from '../../state/types';
+import { Character } from '../../state/characters';
+
 import { StyledCharactersListItem } from './CharactersListItem.styled';
 
 type Props = {

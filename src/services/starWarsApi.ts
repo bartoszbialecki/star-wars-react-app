@@ -1,10 +1,7 @@
-import {
-  Character,
-  Film,
-  PagedData,
-  Planet,
-  ResourceUrl,
-} from "../state/types";
+import { Character } from "../state/characters";
+import { Film } from "../state/films";
+import { Planet } from "../state/planets";
+import { PagedData, ResourceUrl } from "../state/types";
 
 export interface PagedResults<T> {
   count: number;

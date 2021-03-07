@@ -2,8 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AppState } from '../state/index';
-import { Character } from '../state/types';
-import { fetchCharacters, selectCharacter } from '../state/actions';
+import { Character, fetchCharacters, selectCharacter } from '../state/characters';
 
 import Button from '../components/Button';
 import CharacterDetailsContainer from './CharacterDetailsContainer';

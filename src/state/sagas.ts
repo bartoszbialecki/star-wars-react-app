@@ -1,23 +1,24 @@
 import { all, call, fork, put, select, takeLatest } from "redux-saga/effects";
+
 import { AppState } from ".";
 import { starWarsApi } from "../services/starWarsApi";
-import {
-  fetchCharacterFilmsSuccess,
-  fetchCharactersError,
-  fetchCharactersSuccess,
-  fetchFilmsError,
-  fetchFilmsSuccess,
-} from "./actions";
 import {
   Character,
   CharacterActionTypes,
   FetchCharactersAction,
+  fetchCharactersError,
+  fetchCharactersSuccess,
+} from "./characters";
+import {
+  fetchCharacterFilmsSuccess,
   FetchFilmsAction,
+  fetchFilmsError,
+  fetchFilmsSuccess,
   Film,
   FilmActionTypes,
-  PagedData,
-  ResourceId,
-} from "./types";
+} from "./films";
+
+import { PagedData, ResourceId } from "./types";
 
 function* handleCharactersFetch(action: FetchCharactersAction) {
   const { searchValue, page } = action.payload;
