@@ -1,51 +1,14 @@
 import { all, call, fork, put, select, takeLatest } from "redux-saga/effects";
 
-import { AppState } from ".";
-import { starWarsApi } from "../services/starWarsApi";
-import {
-  Character,
-  CharacterActionTypes,
-  FetchCharactersAction,
-  fetchCharactersError,
-  fetchCharactersSuccess,
-} from "./characters";
+import { AppState } from "..";
+import { starWarsApi } from "../../services/starWarsApi";
+import { ResourceId } from "../types";
 import {
   fetchCharacterFilmsSuccess,
-  FetchFilmsAction,
   fetchFilmsError,
   fetchFilmsSuccess,
-  Film,
-  FilmActionTypes,
-} from "./films";
-
-import { PagedData, ResourceId } from "./types";
-
-function* handleCharactersFetch(action: FetchCharactersAction) {
-  const { searchValue, page } = action.payload;
-
-  try {
-    const result: PagedData<Character> = yield call(
-      [starWarsApi, starWarsApi.fetchCharacters],
-      searchValue,
-      page
-    );
-
-    yield put(fetchCharactersSuccess(result));
-  } catch (error) {
-    yield put(fetchCharactersError(error.message));
-  }
-}
-
-function* watchFetchCharacters(): Generator {
-  yield takeLatest(
-    CharacterActionTypes.FETCH_CHARACTERS,
-    handleCharactersFetch
-  );
-}
-
-export function* charactersSaga() {
-  yield all([fork(watchFetchCharacters)]);
-}
+} from "./actions";
+import { FetchFilmsAction, Film, FilmActionTypes } from "./types";
 
 const findFilm = (filmId: ResourceId, films: Film[]) => {
   return films.find(film => film.id === filmId);
