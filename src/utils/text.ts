@@ -1,4 +1,4 @@
-export const trauncateText = (text: string, charactersCount: number) => {
+export const truncateText = (text: string, charactersCount: number) => {
   return text.length > charactersCount
     ? text.substring(0, charactersCount) + "..."
     : text;

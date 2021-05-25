@@ -1,7 +1,7 @@
-import reducers from "./reducers";
+import reducers from "./charactersSlice";
 
 export * from "./types";
-export * from "./actions";
 export * from "./sagas";
+export * from "./charactersSlice";
 
 export default reducers;

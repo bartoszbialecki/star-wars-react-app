@@ -1,25 +1,25 @@
-import React from 'react';
+import React from "react";
 
-import { Film } from '../../state/films';
+import { Film } from "../../state/films";
 
-import { trauncateText } from '../../utils/text';
+import { truncateText } from "../../utils/text";
 
 type Props = {
-    film: Film,
-}
+  film: Film;
+};
 
-const TRUCANTE_CHARS_COUNT = 130
+const TRUNCATE_CHARS_COUNT = 130;
 
 const FilmListItem = ({ film }: Props) => {
-    const { title, releaseDate, openingCrawl } = film
+  const { title, releaseDate, openingCrawl } = film;
 
-    return (
-        <li>
-            <h3>{title}</h3>
-            <p>{releaseDate.toLocaleDateString()}</p>
-            <p>{trauncateText(openingCrawl, TRUCANTE_CHARS_COUNT)}</p>
-        </li>
-    )
-}
+  return (
+    <li>
+      <h3>{title}</h3>
+      <p>{new Date(releaseDate).toLocaleDateString()}</p>
+      <p>{truncateText(openingCrawl, TRUNCATE_CHARS_COUNT)}</p>
+    </li>
+  );
+};
 
-export default FilmListItem
+export default FilmListItem;

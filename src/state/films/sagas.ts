@@ -1,22 +1,17 @@
+import { PayloadAction } from "@reduxjs/toolkit";
 import { all, call, fork, put, select, takeLatest } from "redux-saga/effects";
 
-import { AppState } from "..";
 import { starWarsApi } from "../../services/starWarsApi";
 import { ResourceId } from "../types";
-import {
-  fetchCharacterFilmsSuccess,
-  fetchFilmsError,
-  fetchFilmsSuccess,
-} from "./actions";
-import { FetchFilmsAction, Film, FilmActionTypes } from "./types";
+
+import { fetchCharacterFilmsSuccess, fetchFilms, fetchFilmsError, FetchFilmsPayloadAction, fetchFilmsSuccess, selectFilms } from './filmsSlice';
+import { Film } from "./types";
 
 const findFilm = (filmId: ResourceId, films: Film[]) => {
   return films.find(film => film.id === filmId);
 };
 
-const selectFilms = (state: AppState) => state.films.films;
-
-function* handleFilmsFetch(action: FetchFilmsAction) {
+function* handleFilmsFetch(action: PayloadAction<FetchFilmsPayloadAction>) {
   const { filmIds } = action.payload;
   const characterFilms: Film[] = [];
   const filmIdsToFetch: ResourceId[] = [];
@@ -49,7 +44,7 @@ function* handleFilmsFetch(action: FetchFilmsAction) {
 }
 
 function* watchFetchFilms(): Generator {
-  yield takeLatest(FilmActionTypes.FETCH_FILMS, handleFilmsFetch);
+  yield takeLatest(fetchFilms.type, handleFilmsFetch);
 }
 
 export function* filmsSaga() {
