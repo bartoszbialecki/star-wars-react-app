@@ -1,7 +1,7 @@
-import reducers from "./reducers";
+import reducers from "./filmsSlice";
 
 export * from "./types";
-export * from "./actions";
 export * from "./sagas";
+export * from "./filmsSlice";
 
 export default reducers;

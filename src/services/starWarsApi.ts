@@ -89,7 +89,7 @@ class StarWarsApi {
     return {
       id: this.getIdFromUrl(film.url),
       title: film.title,
-      releaseDate: new Date(film["release_date"]),
+      releaseDate: film["release_date"],
       openingCrawl: film["opening_crawl"],
     };
   }
