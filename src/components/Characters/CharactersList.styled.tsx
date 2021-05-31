@@ -10,6 +10,6 @@ const StyledCharactersList = styled.ul`
     @media ${device.tablet} {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
-`
+`;
 
-export { StyledCharactersList }
+export { StyledCharactersList };

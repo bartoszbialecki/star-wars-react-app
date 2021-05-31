@@ -7,6 +7,6 @@ const StyledModalContent = styled.div`
     @media ${device.tablet} {
         margin: 1em 0;
     }
-`
+`;
 
-export { StyledModalContent }
+export { StyledModalContent };

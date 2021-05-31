@@ -16,6 +16,6 @@ const StyledModalCloseButton = styled.button`
     &:hover {
         color:${({ theme }) => theme.accentColor};
     }
-`
+`;
 
-export { StyledModalCloseButton }
+export { StyledModalCloseButton };

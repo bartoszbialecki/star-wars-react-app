@@ -1,28 +1,25 @@
-import { all, call, fork, put, select, takeLatest } from "redux-saga/effects";
-
-import { AppState } from "..";
-import { starWarsApi } from "../../services/starWarsApi";
-import { ResourceId } from "../types";
+import { PayloadAction } from '@reduxjs/toolkit';
 import {
-  fetchCharacterFilmsSuccess,
-  fetchFilmsError,
-  fetchFilmsSuccess,
-} from "./actions";
-import { FetchFilmsAction, Film, FilmActionTypes } from "./types";
+  all, call, fork, put, select, takeLatest,
+} from 'redux-saga/effects';
 
-const findFilm = (filmId: ResourceId, films: Film[]) => {
-  return films.find(film => film.id === filmId);
-};
+import { starWarsApi } from '../../services/starWarsApi';
+import { ResourceId } from '../types';
 
-const selectFilms = (state: AppState) => state.films.films;
+import {
+  fetchCharacterFilmsSuccess, fetchFilms, fetchFilmsError, FetchFilmsPayloadAction, fetchFilmsSuccess, selectFilms,
+} from './filmsSlice';
+import { Film } from './types';
 
-function* handleFilmsFetch(action: FetchFilmsAction) {
+const findFilm = (filmId: ResourceId, films: Film[]) => films.find((film) => film.id === filmId);
+
+function* handleFilmsFetch(action: PayloadAction<FetchFilmsPayloadAction>) {
   const { filmIds } = action.payload;
   const characterFilms: Film[] = [];
   const filmIdsToFetch: ResourceId[] = [];
   const films: Film[] = yield select(selectFilms);
 
-  filmIds.forEach(filmId => {
+  filmIds.forEach((filmId) => {
     const foundFilm = findFilm(filmId, films);
 
     if (foundFilm) {
@@ -34,9 +31,7 @@ function* handleFilmsFetch(action: FetchFilmsAction) {
 
   try {
     const result: Film[] = yield all(
-      filmIdsToFetch.map(filmId =>
-        call([starWarsApi, starWarsApi.fetchFilm], filmId)
-      )
+      filmIdsToFetch.map((filmId) => call([starWarsApi, starWarsApi.fetchFilm], filmId)),
     );
 
     characterFilms.push(...result);
@@ -49,7 +44,7 @@ function* handleFilmsFetch(action: FetchFilmsAction) {
 }
 
 function* watchFetchFilms(): Generator {
-  yield takeLatest(FilmActionTypes.FETCH_FILMS, handleFilmsFetch);
+  yield takeLatest(fetchFilms.type, handleFilmsFetch);
 }
 
 export function* filmsSaga() {

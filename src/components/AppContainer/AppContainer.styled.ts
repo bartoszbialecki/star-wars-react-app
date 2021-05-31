@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { device } from "../../utils/breakpoints";
+import styled from 'styled-components';
+import { device } from '../../utils/breakpoints';
 
 const StyledAppContainer = styled.div`
   margin: 2em 4em;
@@ -9,4 +9,4 @@ const StyledAppContainer = styled.div`
   }
 `;
 
-export { StyledAppContainer };
+export default StyledAppContainer;

@@ -1,7 +1,7 @@
-import { Character } from "../state/characters";
-import { Film } from "../state/films";
-import { Planet } from "../state/planets";
-import { PagedData, ResourceUrl } from "../state/types";
+import type { Character } from '../state/characters';
+import { Film } from '../state/films';
+import { Planet } from '../state/planets';
+import { PagedData, ResourceUrl } from '../state/types';
 
 export interface PagedResults<T> {
   count: number;
@@ -11,28 +11,29 @@ export interface PagedResults<T> {
 }
 
 class StarWarsApi {
-  private baseUrl = "https://swapi.dev/api/";
-  private peopleEndpoint = "people/";
-  private planetsEndpoint = "planets/";
-  private filmsEndpoint = "films/";
+  private baseUrl = 'https://swapi.dev/api/';
+
+  private peopleEndpoint = 'people/';
+
+  private planetsEndpoint = 'planets/';
+
+  private filmsEndpoint = 'films/';
 
   private defaultHeaders: HeadersInit = {
-    Accept: "application/json",
-    "Content-Type": "application/json; charset=UTF-8",
+    Accept: 'application/json',
+    'Content-Type': 'application/json; charset=UTF-8',
   };
 
   async fetchCharacters(
     search: string,
-    page: number = 1
+    page = 1,
   ): Promise<PagedData<Character>> {
     const response = await this.get<PagedResults<any>>(
-      `${this.baseUrl}${this.peopleEndpoint}?search=${search}&page=${page}`
+      `${this.baseUrl}${this.peopleEndpoint}?search=${search}&page=${page}`,
     );
 
     const results = await Promise.all(
-      response.results.map(async character => {
-        return await this.mapToCharacter(character);
-      })
+      response.results.map(async (character) => await this.mapToCharacter(character)),
     );
 
     return {
@@ -44,7 +45,7 @@ class StarWarsApi {
 
   async fetchPlanet(planetId: number): Promise<Planet> {
     const response = await this.get<any>(
-      `${this.baseUrl}${this.planetsEndpoint}${planetId}/`
+      `${this.baseUrl}${this.planetsEndpoint}${planetId}/`,
     );
 
     return this.mapToPlanet(response);
@@ -52,14 +53,14 @@ class StarWarsApi {
 
   async fetchFilm(filmId: number): Promise<Film> {
     const response = await this.get<any>(
-      `${this.baseUrl}${this.filmsEndpoint}${filmId}/`
+      `${this.baseUrl}${this.filmsEndpoint}${filmId}/`,
     );
 
     return this.mapToFilm(response);
   }
 
   private getIdFromUrl(url: ResourceUrl) {
-    const parts = url.split("/").reverse();
+    const parts = url.split('/').reverse();
     return +parts[1];
   }
 
@@ -71,9 +72,7 @@ class StarWarsApi {
       id: this.getIdFromUrl(character.url),
       name: character.name,
       homeworld: planet,
-      filmIds: character.films.map((filmUrl: string) =>
-        this.getIdFromUrl(filmUrl)
-      ),
+      filmIds: character.films.map((filmUrl: string) => this.getIdFromUrl(filmUrl)),
     };
   }
 
@@ -89,13 +88,13 @@ class StarWarsApi {
     return {
       id: this.getIdFromUrl(film.url),
       title: film.title,
-      releaseDate: new Date(film["release_date"]),
-      openingCrawl: film["opening_crawl"],
+      releaseDate: film.release_date,
+      openingCrawl: film.opening_crawl,
     };
   }
 
   private async get<T>(path: string, config?: RequestInit): Promise<T> {
-    const init = { method: "GET", headers: this.defaultHeaders, ...config };
+    const init = { method: 'GET', headers: this.defaultHeaders, ...config };
     return await this.makeRequest(new Request(path, init));
   }
 

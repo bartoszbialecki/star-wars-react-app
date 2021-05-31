@@ -22,6 +22,6 @@ const StyledModalBox = styled.div`
         padding: 20px 10px;
         width: 100%;
     }
-`
+`;
 
-export { StyledModalBox }
+export { StyledModalBox };

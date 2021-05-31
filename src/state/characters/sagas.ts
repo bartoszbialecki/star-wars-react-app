@@ -1,22 +1,23 @@
-import { all, call, fork, put, takeLatest } from "redux-saga/effects";
-
-import { starWarsApi } from "../../services/starWarsApi";
-import { PagedData } from "../types";
-import { fetchCharactersError, fetchCharactersSuccess } from "./actions";
+import { PayloadAction } from '@reduxjs/toolkit';
 import {
-  Character,
-  CharacterActionTypes,
-  FetchCharactersAction,
-} from "./types";
+  all, call, fork, put, takeLatest,
+} from 'redux-saga/effects';
 
-function* handleCharactersFetch(action: FetchCharactersAction) {
+import { starWarsApi } from '../../services/starWarsApi';
+import { PagedData } from '../types';
+import {
+  fetchCharacters, FetchCharactersActionPayload, fetchCharactersError, fetchCharactersSuccess,
+} from './charactersSlice';
+import { Character } from './types';
+
+function* handleCharactersFetch(action: PayloadAction<FetchCharactersActionPayload>) {
   const { searchValue, page } = action.payload;
 
   try {
     const result: PagedData<Character> = yield call(
       [starWarsApi, starWarsApi.fetchCharacters],
       searchValue,
-      page
+      page,
     );
 
     yield put(fetchCharactersSuccess(result));
@@ -26,10 +27,7 @@ function* handleCharactersFetch(action: FetchCharactersAction) {
 }
 
 function* watchFetchCharacters(): Generator {
-  yield takeLatest(
-    CharacterActionTypes.FETCH_CHARACTERS,
-    handleCharactersFetch
-  );
+  yield takeLatest(fetchCharacters.type, handleCharactersFetch);
 }
 
 export function* charactersSaga() {
