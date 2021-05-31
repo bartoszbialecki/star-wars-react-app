@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import FilmsList from "../components/Films/FilmsList";
-import { StyledErrorMessage } from "../components/ErrorMessage/ErrorMessage.styled";
-import Text from "../components/Text";
-import ThemedLoader from "../components/ThemedLoader/ThemedLoader";
+import FilmsList from '../components/Films/FilmsList';
+import { StyledErrorMessage } from '../components/ErrorMessage/ErrorMessage.styled';
+import Text from '../components/Text';
+import ThemedLoader from '../components/ThemedLoader/ThemedLoader';
 
-import { Character } from "../state/characters";
-import { fetchFilms } from "../state/films";
-import { useAppDispatch, useAppSelector } from "../state/hooks";
+import { Character } from '../state/characters';
+import { fetchFilms } from '../state/films';
+import { useAppDispatch, useAppSelector } from '../state/hooks';
 
 type Props = {
   character: Character;
@@ -15,7 +15,7 @@ type Props = {
 
 const CharacterDetailsContainer = ({ character }: Props) => {
   const { selectedCharacterFilms, loading, error } = useAppSelector(
-    (state) => state.films
+    (state) => state.films,
   );
   const dispatch = useAppDispatch();
 
@@ -23,17 +23,18 @@ const CharacterDetailsContainer = ({ character }: Props) => {
     dispatch(fetchFilms({ filmIds: character.filmIds }));
   }, [character.filmIds, dispatch]);
 
-  const showNoFilmsInfo = () => {
-    return !loading && !error && selectedCharacterFilms.length === 0;
-  };
+  const showNoFilmsInfo = () => !loading && !error && selectedCharacterFilms.length === 0;
 
-  const showError = () => {
-    return !loading && error;
-  };
+  const showError = () => !loading && error;
 
   return (
     <>
-      <h2>List of movies in which {character.name} appeared</h2>
+      <h2>
+        List of movies in which
+        {character.name}
+        {' '}
+        appeared
+      </h2>
 
       {loading && <ThemedLoader />}
 

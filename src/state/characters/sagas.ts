@@ -1,10 +1,14 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { all, call, fork, put, takeLatest } from "redux-saga/effects";
+import { PayloadAction } from '@reduxjs/toolkit';
+import {
+  all, call, fork, put, takeLatest,
+} from 'redux-saga/effects';
 
-import { starWarsApi } from "../../services/starWarsApi";
-import { PagedData } from "../types";
-import { fetchCharacters, FetchCharactersActionPayload, fetchCharactersError, fetchCharactersSuccess } from './charactersSlice'
-import { Character } from "./types";
+import { starWarsApi } from '../../services/starWarsApi';
+import { PagedData } from '../types';
+import {
+  fetchCharacters, FetchCharactersActionPayload, fetchCharactersError, fetchCharactersSuccess,
+} from './charactersSlice';
+import { Character } from './types';
 
 function* handleCharactersFetch(action: PayloadAction<FetchCharactersActionPayload>) {
   const { searchValue, page } = action.payload;
@@ -13,7 +17,7 @@ function* handleCharactersFetch(action: PayloadAction<FetchCharactersActionPaylo
     const result: PagedData<Character> = yield call(
       [starWarsApi, starWarsApi.fetchCharacters],
       searchValue,
-      page
+      page,
     );
 
     yield put(fetchCharactersSuccess(result));

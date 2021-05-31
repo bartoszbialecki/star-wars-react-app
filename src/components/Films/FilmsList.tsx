@@ -10,19 +10,15 @@ type FilmsListProps = {
 }
 
 const FilmsList = ({ films }: FilmsListProps) => {
-    const renderFilm = (film: Film) => {
-        return (
-            <FilmListItem key={film.id} film={film} />
-        )
-    }
+  const renderFilm = (film: Film) => (
+    <FilmListItem key={film.id} film={film} />
+  );
 
-    const renderFilmsList = () => {
-        return films.map(film => renderFilm(film))
-    }
+  const renderFilmsList = () => films.map((film) => renderFilm(film));
 
-    return (
-        <StyledFilmsList>{ renderFilmsList() }</StyledFilmsList>
-    )
-}
+  return (
+    <StyledFilmsList>{ renderFilmsList() }</StyledFilmsList>
+  );
+};
 
-export default FilmsList
+export default FilmsList;

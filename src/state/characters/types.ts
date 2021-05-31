@@ -1,5 +1,5 @@
-import { Planet } from "../planets";
-import { PagedData, Resource, ResourceId } from "../types";
+import { Planet } from '../planets';
+import { PagedData, Resource, ResourceId } from '../types';
 
 export interface Character extends Resource {
   name: string;

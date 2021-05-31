@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { Film } from "../../state/films";
+import { Film } from '../../state/films';
 
-import { truncateText } from "../../utils/text";
+import { truncateText } from '../../utils/text';
 
 type Props = {
   film: Film;

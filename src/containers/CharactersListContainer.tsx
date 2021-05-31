@@ -1,24 +1,25 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState } from 'react';
 
 import {
   Character,
   fetchCharacters,
   selectCharacter,
-} from "../state/characters";
+} from '../state/characters';
 
-import Button from "../components/Button";
-import CharacterDetailsContainer from "./CharacterDetailsContainer";
-import CharactersList from "../components/Characters/CharactersList";
-import Modal from "../components/Modal/Modal";
-import SearchCharacterForm from "../components/Characters/SearchCharacterForm";
-import { StyledErrorMessage } from "../components/ErrorMessage/ErrorMessage.styled";
-import Text from "../components/Text";
-import ThemedLoader from "../components/ThemedLoader/ThemedLoader";
-import { useAppDispatch, useAppSelector } from "../state/hooks";
+import Button from '../components/Button';
+import CharacterDetailsContainer from './CharacterDetailsContainer';
+import CharactersList from '../components/Characters/CharactersList';
+import Modal from '../components/Modal/Modal';
+import SearchCharacterForm from '../components/Characters/SearchCharacterForm';
+import { StyledErrorMessage } from '../components/ErrorMessage/ErrorMessage.styled';
+import Text from '../components/Text';
+import ThemedLoader from '../components/ThemedLoader/ThemedLoader';
+import { useAppDispatch, useAppSelector } from '../state/hooks';
 
 const CharactersListContainer = () => {
-  const { characters, selectedCharacter, loading, page, error } =
-    useAppSelector((state) => state.characters);
+  const {
+    characters, selectedCharacter, loading, page, error,
+  } = useAppSelector((state) => state.characters);
   const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = useState<string | null>(null);
 
@@ -27,7 +28,7 @@ const CharactersListContainer = () => {
       setSearchValue(value);
       dispatch(fetchCharacters({ searchValue: value, page: 1 }));
     },
-    [dispatch]
+    [dispatch],
   );
 
   const handleLoadMoreCharacters = () => {
@@ -36,23 +37,17 @@ const CharactersListContainer = () => {
     }
   };
 
-  const showLoadMoreCharactersButton = () => {
-    return !loading && characters.hasMoreData;
-  };
+  const showLoadMoreCharactersButton = () => !loading && characters.hasMoreData;
 
-  const showNoCharactersInfo = () => {
-    return (
-      !loading && !error && characters.data.length === 0 && searchValue !== null
-    );
-  };
+  const showNoCharactersInfo = () => (
+    !loading && !error && characters.data.length === 0 && searchValue !== null
+  );
 
   const handleCharacterSelect = (character: Character) => {
     dispatch(selectCharacter(character));
   };
 
-  const showError = () => {
-    return !loading && error;
-  };
+  const showError = () => !loading && error;
 
   const closeModal = () => {
     dispatch(selectCharacter(null));

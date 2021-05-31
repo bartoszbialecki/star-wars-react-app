@@ -11,32 +11,32 @@ type Props = {
 }
 
 const SearchCharacterForm = ({ searchCharacter }: Props) => {
-    const [searchValue, setSearchValue] = useState("")
+  const [searchValue, setSearchValue] = useState('');
 
-    const handleSearchValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(e.target.value)
-    }
+  const handleSearchValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
 
-    const handleFormSubmit = (e: FormEvent) => {
-        e.preventDefault()
+  const handleFormSubmit = (e: FormEvent) => {
+    e.preventDefault();
 
-        searchCharacter(searchValue)
-    }
+    searchCharacter(searchValue);
+  };
 
-    return (
-        <StyledForm onSubmit={handleFormSubmit}>
-            <FormTitle>Search Your Favorite Characters</FormTitle>
-            <StyledFormGroup>
-            <Input
-                type="text"
-                name="search"
-                placeholder="Search a character"
-                onChange={handleSearchValueChange}
-            />
-            </StyledFormGroup>
-            <Button>Search</Button>
-        </StyledForm>
-    )
-}
+  return (
+    <StyledForm onSubmit={handleFormSubmit}>
+      <FormTitle>Search Your Favorite Characters</FormTitle>
+      <StyledFormGroup>
+        <Input
+          type="text"
+          name="search"
+          placeholder="Search a character"
+          onChange={handleSearchValueChange}
+        />
+      </StyledFormGroup>
+      <Button>Search</Button>
+    </StyledForm>
+  );
+};
 
-export default SearchCharacterForm
+export default SearchCharacterForm;

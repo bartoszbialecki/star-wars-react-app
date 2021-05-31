@@ -1,15 +1,17 @@
-import { PayloadAction } from "@reduxjs/toolkit";
-import { all, call, fork, put, select, takeLatest } from "redux-saga/effects";
+import { PayloadAction } from '@reduxjs/toolkit';
+import {
+  all, call, fork, put, select, takeLatest,
+} from 'redux-saga/effects';
 
-import { starWarsApi } from "../../services/starWarsApi";
-import { ResourceId } from "../types";
+import { starWarsApi } from '../../services/starWarsApi';
+import { ResourceId } from '../types';
 
-import { fetchCharacterFilmsSuccess, fetchFilms, fetchFilmsError, FetchFilmsPayloadAction, fetchFilmsSuccess, selectFilms } from './filmsSlice';
-import { Film } from "./types";
+import {
+  fetchCharacterFilmsSuccess, fetchFilms, fetchFilmsError, FetchFilmsPayloadAction, fetchFilmsSuccess, selectFilms,
+} from './filmsSlice';
+import { Film } from './types';
 
-const findFilm = (filmId: ResourceId, films: Film[]) => {
-  return films.find(film => film.id === filmId);
-};
+const findFilm = (filmId: ResourceId, films: Film[]) => films.find((film) => film.id === filmId);
 
 function* handleFilmsFetch(action: PayloadAction<FetchFilmsPayloadAction>) {
   const { filmIds } = action.payload;
@@ -17,7 +19,7 @@ function* handleFilmsFetch(action: PayloadAction<FetchFilmsPayloadAction>) {
   const filmIdsToFetch: ResourceId[] = [];
   const films: Film[] = yield select(selectFilms);
 
-  filmIds.forEach(filmId => {
+  filmIds.forEach((filmId) => {
     const foundFilm = findFilm(filmId, films);
 
     if (foundFilm) {
@@ -29,9 +31,7 @@ function* handleFilmsFetch(action: PayloadAction<FetchFilmsPayloadAction>) {
 
   try {
     const result: Film[] = yield all(
-      filmIdsToFetch.map(filmId =>
-        call([starWarsApi, starWarsApi.fetchFilm], filmId)
-      )
+      filmIdsToFetch.map((filmId) => call([starWarsApi, starWarsApi.fetchFilm], filmId)),
     );
 
     characterFilms.push(...result);

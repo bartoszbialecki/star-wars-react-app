@@ -1,14 +1,14 @@
-import React from 'react';
-import { ThemeProvider } from "styled-components";
+import React, { ReactElement } from 'react';
+import { ThemeProvider } from 'styled-components';
 
 import CharactersListContainer from './containers/CharactersListContainer';
-import { StyledAppContainer } from './components/AppContainer/AppContainer.styled';
+import StyledAppContainer from './components/AppContainer/AppContainer.styled';
 
-import { GlobalStyle, theme } from "./theme";
+import { GlobalStyle, theme } from './theme';
 
-function App() {
+function App(): ReactElement {
   return (
-    <ThemeProvider theme={ theme }>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
       <StyledAppContainer>
         <h1>Star Wars</h1>
